@@ -1,71 +1,91 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Shield, MapPin, Clock, Package, AlertTriangle, CheckCircle, Loader2, Lock } from "lucide-react";
+import { Search, Shield, AlertTriangle, Loader2, Lock, FileText, User, Globe, Calendar, Package, DollarSign, Archive } from "lucide-react";
 
-interface TrackingResult {
-  id: string;
-  category: string;
-  status: string;
-  statusColor: string;
-  location: string;
-  lastUpdate: string;
-  estimatedDelivery: string;
-  timeline: { time: string; event: string; done: boolean }[];
+interface VaultCertificate {
+  vaultCode: string;
+  assignedCustodian: string;
+  transactionCode: string;
+  securityCode: string;
+  depositorName: string;
+  depositorNationality: string;
+  nextOfKin: string;
+  nextOfKinNationality: string;
+  dateOfDeposit: string;
+  purposeOfDeposit: string;
+  securityCharges: string;
+  consignmentPackage: string;
+  consignmentContent: string;
 }
 
-const mockData: Record<string, TrackingResult> = {
+const mockData: Record<string, VaultCertificate> = {
   "AF-2026-0042": {
-    id: "AF-2026-0042",
-    category: "Precious Metals — Gold Bullion",
-    status: "In Transit",
-    statusColor: "text-yellow-400",
-    location: "Frankfurt, Germany",
-    lastUpdate: "2026-02-26T14:32:00Z",
-    estimatedDelivery: "2026-02-28",
-    timeline: [
-      { time: "Feb 24, 08:00", event: "Asset received at origin vault", done: true },
-      { time: "Feb 24, 14:15", event: "Security inspection cleared", done: true },
-      { time: "Feb 25, 06:00", event: "Loaded into armored transport", done: true },
-      { time: "Feb 26, 14:32", event: "In transit — Frankfurt checkpoint", done: true },
-      { time: "Feb 27, 10:00", event: "Arrival at destination facility", done: false },
-      { time: "Feb 28, 09:00", event: "Final delivery & handover", done: false },
-    ],
+    vaultCode: "VC-8741-ZRCH-A3",
+    assignedCustodian: "Col. Heinrich Brauer",
+    transactionCode: "TXN-2026-AF0042-GLD",
+    securityCode: "SEC-9827-DELTA-7X",
+    depositorName: "Laurent M. Beaumont",
+    depositorNationality: "France",
+    nextOfKin: "Isabelle C. Beaumont",
+    nextOfKinNationality: "France",
+    dateOfDeposit: "24 February 2026",
+    purposeOfDeposit: "Private Storage — Long-Term Investment Holding",
+    securityCharges: "CHF 47,500.00 / Annum",
+    consignmentPackage: "Sealed Vault Crate — Class IV Armored",
+    consignmentContent: "Gold Bullion — 12 × 1kg LBMA-Certified Bars",
   },
   "AF-2026-0099": {
-    id: "AF-2026-0099",
-    category: "Fine Art — Insured Collection",
-    status: "In Vault",
-    statusColor: "text-emerald-400",
-    location: "Zürich, Switzerland",
-    lastUpdate: "2026-02-26T09:00:00Z",
-    estimatedDelivery: "N/A — Stored",
-    timeline: [
-      { time: "Feb 10, 11:00", event: "Asset received and cataloged", done: true },
-      { time: "Feb 10, 14:00", event: "Climate-controlled vault assigned", done: true },
-      { time: "Feb 10, 16:30", event: "Security seal activated", done: true },
-      { time: "Daily", event: "Automated environment monitoring", done: true },
-    ],
+    vaultCode: "VC-3392-ZRCH-B7",
+    assignedCustodian: "Cmdr. Elena Vogt",
+    transactionCode: "TXN-2026-AF0099-ART",
+    securityCode: "SEC-5510-OMEGA-2K",
+    depositorName: "Dimitri A. Konstantinos",
+    depositorNationality: "Greece",
+    nextOfKin: "Sophia E. Konstantinos",
+    nextOfKinNationality: "Greece",
+    dateOfDeposit: "10 February 2026",
+    purposeOfDeposit: "Legal Custody — Insured Art Collection",
+    securityCharges: "CHF 62,000.00 / Annum",
+    consignmentPackage: "Climate-Controlled Precious Metals Locker",
+    consignmentContent: "Fine Art — 4 Paintings, Authenticated & Insured ($12.4M)",
   },
   "AF-2026-0155": {
-    id: "AF-2026-0155",
-    category: "Currency — Multi-Denomination",
-    status: "Delivered",
-    statusColor: "text-emerald-400",
-    location: "Singapore",
-    lastUpdate: "2026-02-22T16:45:00Z",
-    estimatedDelivery: "Completed — Feb 22",
-    timeline: [
-      { time: "Feb 19, 07:00", event: "Asset prepared for dispatch", done: true },
-      { time: "Feb 20, 12:00", event: "Armed escort departed", done: true },
-      { time: "Feb 21, 18:00", event: "Customs clearance completed", done: true },
-      { time: "Feb 22, 16:45", event: "Delivered to client vault", done: true },
-    ],
+    vaultCode: "VC-6178-SING-D1",
+    assignedCustodian: "Maj. Rajesh Anand",
+    transactionCode: "TXN-2026-AF0155-CUR",
+    securityCode: "SEC-7743-ALPHA-9R",
+    depositorName: "Chen Wei Lin",
+    depositorNationality: "Singapore",
+    nextOfKin: "Chen Mei Xiang",
+    nextOfKinNationality: "Singapore",
+    dateOfDeposit: "15 January 2026",
+    purposeOfDeposit: "International Transfer — Multi-Denomination Currency",
+    securityCharges: "SGD 28,750.00 / Annum",
+    consignmentPackage: "Armored Case — Dual-Lock Biometric Seal",
+    consignmentContent: "Currency — Multi-Denomination (USD, EUR, GBP, CHF) — $3.2M Equivalent",
   },
 };
 
+const CertField = ({ label, value, icon: Icon, delay = 0 }: { label: string; value: string; icon: React.ElementType; delay?: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 8 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay }}
+    className="flex gap-4 py-4 border-b border-border/50 last:border-b-0"
+  >
+    <div className="mt-0.5">
+      <Icon className="h-4 w-4 text-primary" />
+    </div>
+    <div className="flex-1 min-w-0">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-1">{label}</p>
+      <p className="text-sm font-medium text-foreground">{value}</p>
+    </div>
+  </motion.div>
+);
+
 const TrackAsset = () => {
   const [trackingId, setTrackingId] = useState("");
-  const [result, setResult] = useState<TrackingResult | null>(null);
+  const [result, setResult] = useState<VaultCertificate | null>(null);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
@@ -74,10 +94,7 @@ const TrackAsset = () => {
     setLoading(true);
     setResult(null);
     setNotFound(false);
-
-    // Simulate API call
     await new Promise((r) => setTimeout(r, 1500));
-
     const found = mockData[trackingId.trim().toUpperCase()];
     if (found) {
       setResult(found);
@@ -95,16 +112,14 @@ const TrackAsset = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-4 flex items-center justify-center gap-2">
               <div className="h-px w-12 bg-primary" />
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
-                Secure Tracking
-              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Secure Tracking</span>
               <div className="h-px w-12 bg-primary" />
             </div>
             <h1 className="font-display text-5xl font-bold text-foreground md:text-6xl">
-              Asset <span className="text-gradient-gold">Tracker</span>
+              Vault <span className="text-gradient-gold">Certificate</span>
             </h1>
             <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
-              Enter your tracking reference number to view real-time asset status.
+              Enter your tracking reference number to retrieve your vault certificate details.
             </p>
           </motion.div>
         </div>
@@ -155,12 +170,7 @@ const TrackAsset = () => {
       {/* Loading */}
       <AnimatePresence>
         {loading && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="container mx-auto px-6 max-w-2xl py-12 text-center"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="container mx-auto px-6 max-w-2xl py-12 text-center">
             <div className="relative mx-auto h-20 w-20">
               <div className="absolute inset-0 rounded-full border-2 border-primary/20" />
               <div className="absolute inset-0 rounded-full border-2 border-t-primary animate-spin" />
@@ -174,20 +184,14 @@ const TrackAsset = () => {
       {/* Not Found */}
       <AnimatePresence>
         {notFound && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="container mx-auto px-6 max-w-2xl py-8"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="container mx-auto px-6 max-w-2xl py-8">
             <div className="bg-gradient-card border border-destructive/30 rounded-lg p-8 text-center shadow-card">
               <AlertTriangle className="mx-auto h-10 w-10 text-destructive mb-4" />
               <h3 className="font-display text-xl font-bold text-foreground mb-2">Reference Not Found</h3>
-              <p className="text-sm text-muted-foreground">
-                No asset matches this tracking reference. Please verify your reference number and try again.
-              </p>
+              <p className="text-sm text-muted-foreground">No vault certificate matches this tracking reference.</p>
               <p className="mt-4 text-xs text-muted-foreground">
-                Try: <button onClick={() => { setTrackingId("AF-2026-0042"); setNotFound(false); }} className="text-primary hover:underline font-mono">AF-2026-0042</button>,{" "}
+                Try:{" "}
+                <button onClick={() => { setTrackingId("AF-2026-0042"); setNotFound(false); }} className="text-primary hover:underline font-mono">AF-2026-0042</button>,{" "}
                 <button onClick={() => { setTrackingId("AF-2026-0099"); setNotFound(false); }} className="text-primary hover:underline font-mono">AF-2026-0099</button>, or{" "}
                 <button onClick={() => { setTrackingId("AF-2026-0155"); setNotFound(false); }} className="text-primary hover:underline font-mono">AF-2026-0155</button>
               </p>
@@ -196,119 +200,80 @@ const TrackAsset = () => {
         )}
       </AnimatePresence>
 
-      {/* Result */}
+      {/* Vault Certificate */}
       <AnimatePresence>
         {result && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="container mx-auto px-6 max-w-4xl pb-24"
+            className="container mx-auto px-6 max-w-3xl pb-24"
           >
-            {/* Result Card */}
-            <div className="bg-gradient-card border border-border rounded-lg shadow-card overflow-hidden">
-              {/* Header bar */}
-              <div className="border-b border-border px-8 py-5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Shield className="h-5 w-5 text-primary" />
-                  <span className="font-mono text-sm tracking-wider text-foreground">{result.id}</span>
-                </div>
-                <span className={`text-sm font-semibold uppercase tracking-wider ${result.statusColor}`}>
-                  ● {result.status}
-                </span>
-              </div>
-
-              {/* Details grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 border-b border-border">
-                <div className="border-b md:border-b-0 md:border-r border-border px-8 py-6">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground mb-2">
-                    <Package className="h-3 w-3" /> Category
-                  </div>
-                  <p className="text-sm font-medium text-foreground">{result.category}</p>
-                </div>
-                <div className="border-b md:border-b-0 md:border-r border-border px-8 py-6">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground mb-2">
-                    <MapPin className="h-3 w-3" /> Location
-                  </div>
-                  <p className="text-sm font-medium text-foreground">{result.location}</p>
-                </div>
-                <div className="border-b lg:border-b-0 lg:border-r border-border px-8 py-6">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground mb-2">
-                    <Clock className="h-3 w-3" /> Last Update
-                  </div>
-                  <p className="text-sm font-medium text-foreground">
-                    {new Date(result.lastUpdate).toLocaleString()}
+            <div className="bg-gradient-card border border-primary/20 rounded-lg shadow-card overflow-hidden">
+              {/* Certificate Header */}
+              <div className="border-b border-primary/20 px-8 py-6 text-center relative overflow-hidden">
+                <div className="absolute inset-0 opacity-5" style={{
+                  backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, hsl(var(--primary)) 20px, hsl(var(--primary)) 21px)",
+                }} />
+                <div className="relative">
+                  <Shield className="mx-auto h-8 w-8 text-primary mb-3" />
+                  <h2 className="font-display text-2xl font-bold text-foreground tracking-wider">
+                    VAULT <span className="text-gradient-gold">CERTIFICATE</span>
+                  </h2>
+                  <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mt-2">
+                    IronClad Global Security — Confidential Document
                   </p>
                 </div>
-                <div className="px-8 py-6">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground mb-2">
-                    <Clock className="h-3 w-3" /> Est. Delivery
-                  </div>
-                  <p className="text-sm font-medium text-foreground">{result.estimatedDelivery}</p>
+              </div>
+
+              {/* Vault Code & Custodian */}
+              <div className="grid md:grid-cols-2 border-b border-border">
+                <div className="border-b md:border-b-0 md:border-r border-border px-8 py-6 text-center">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary mb-2">Vault Code</p>
+                  <p className="font-mono text-lg font-bold text-foreground tracking-widest">{result.vaultCode}</p>
+                </div>
+                <div className="px-8 py-6 text-center">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary mb-2">Assigned Custodian</p>
+                  <p className="font-display text-lg font-semibold text-foreground">{result.assignedCustodian}</p>
                 </div>
               </div>
 
-              {/* Timeline */}
-              <div className="px-8 py-8">
-                <h4 className="text-xs font-semibold uppercase tracking-widest text-primary mb-6">
-                  Tracking Timeline
-                </h4>
-                <div className="space-y-4">
-                  {result.timeline.map((event, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-start gap-4"
-                    >
-                      <div className="flex flex-col items-center">
-                        <div className={`mt-1 flex h-6 w-6 items-center justify-center rounded-full ${
-                          event.done
-                            ? "bg-primary/20 border border-primary/40"
-                            : "bg-muted border border-border"
-                        }`}>
-                          {event.done ? (
-                            <CheckCircle className="h-3.5 w-3.5 text-primary" />
-                          ) : (
-                            <div className="h-2 w-2 rounded-full bg-muted-foreground/40" />
-                          )}
-                        </div>
-                        {i < result.timeline.length - 1 && (
-                          <div className={`w-px flex-1 min-h-[20px] ${event.done ? "bg-primary/30" : "bg-border"}`} />
-                        )}
-                      </div>
-                      <div className="pb-4">
-                        <p className={`text-sm ${event.done ? "text-foreground" : "text-muted-foreground"}`}>
-                          {event.event}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{event.time}</p>
-                      </div>
-                    </motion.div>
-                  ))}
+              {/* Certificate Details */}
+              <div className="px-8 py-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="h-px flex-1 bg-primary/20" />
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">Certificate Details</span>
+                  <div className="h-px flex-1 bg-primary/20" />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-x-8">
+                  <div>
+                    <CertField icon={FileText} label="Transaction Code" value={result.transactionCode} delay={0.1} />
+                    <CertField icon={Lock} label="Security Code" value={result.securityCode} delay={0.15} />
+                    <CertField icon={User} label="Depositor Name" value={result.depositorName} delay={0.2} />
+                    <CertField icon={Globe} label="Depositor Nationality" value={result.depositorNationality} delay={0.25} />
+                    <CertField icon={User} label="Next of Kin" value={result.nextOfKin} delay={0.3} />
+                    <CertField icon={Globe} label="Next of Kin Nationality" value={result.nextOfKinNationality} delay={0.35} />
+                  </div>
+                  <div>
+                    <CertField icon={Calendar} label="Date of Deposit" value={result.dateOfDeposit} delay={0.2} />
+                    <CertField icon={FileText} label="Purpose of Deposit" value={result.purposeOfDeposit} delay={0.25} />
+                    <CertField icon={DollarSign} label="Security Charges" value={result.securityCharges} delay={0.3} />
+                    <CertField icon={Package} label="Consignment Package" value={result.consignmentPackage} delay={0.35} />
+                    <CertField icon={Archive} label="Consignment Content" value={result.consignmentContent} delay={0.4} />
+                  </div>
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="border-t border-border px-8 py-8">
-                <h4 className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">
-                  Live Location
-                </h4>
-                <div className="relative h-48 rounded-lg bg-muted border border-border overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <MapPin className="mx-auto h-8 w-8 text-primary animate-pulse-gold" />
-                      <p className="mt-2 text-sm text-muted-foreground">{result.location}</p>
-                      <p className="text-xs text-muted-foreground mt-1">Secure map feed — encrypted channel</p>
-                    </div>
-                  </div>
-                  {/* Grid overlay */}
-                  <div className="absolute inset-0 opacity-10" style={{
-                    backgroundImage: "linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)",
-                    backgroundSize: "40px 40px",
-                  }} />
-                  {/* Scan line */}
-                  <div className="absolute inset-x-0 h-px bg-primary/30 animate-scan-line" />
+              {/* Footer seal */}
+              <div className="border-t border-primary/20 px-8 py-5 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Lock className="h-3 w-3 text-primary" />
+                  Encrypted & tamper-proof — verified by IronClad Security
+                </div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Shield className="h-3 w-3 text-primary" />
+                  {trackingId.toUpperCase()}
                 </div>
               </div>
             </div>

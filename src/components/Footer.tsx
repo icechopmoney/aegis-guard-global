@@ -18,29 +18,29 @@ const Footer = () => (
         </div>
         <div>
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Services</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>Asset Protection</li>
-            <li>Vault Storage</li>
-            <li>Secure Transport</li>
-            <li>Executive Security</li>
+          <ul className="space-y-2 text-sm">
+            <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Asset Protection</Link></li>
+            <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Vault Storage</Link></li>
+            <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Secure Transport</Link></li>
+            <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Executive Security</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Company</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>About Us</li>
-            <li>Careers</li>
-            <li>Contact</li>
-            <li>Compliance</li>
+          <ul className="space-y-2 text-sm">
+            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
+            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
+            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Compliance</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Operations</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>Global Coverage</li>
-            <li>24/7 Operations Center</li>
-            <li>ISO 27001 Certified</li>
-            <li>TAPA Compliant</li>
+          <ul className="space-y-2 text-sm">
+            <li><Link to="/track" className="text-muted-foreground hover:text-primary transition-colors">Global Coverage</Link></li>
+            <li><Link to="/track" className="text-muted-foreground hover:text-primary transition-colors">24/7 Operations Center</Link></li>
+            <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">ISO 27001 Certified</Link></li>
+            <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">TAPA Compliant</Link></li>
           </ul>
         </div>
       </div>
