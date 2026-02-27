@@ -23,7 +23,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-3">
           <Shield className="h-8 w-8 text-primary" />
           <span className="font-display text-xl font-bold tracking-wider text-foreground">
-            IRON<span className="text-gradient-gold">CLAD</span>
+            PRIME <span className="text-gradient-gold">VAULT</span>
           </span>
         </Link>
 
