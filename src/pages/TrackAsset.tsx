@@ -220,8 +220,8 @@ const TrackAsset = () => {
                   <h2 className="font-display text-2xl font-bold text-foreground tracking-wider">
                     VAULT <span className="text-gradient-gold">CERTIFICATE</span>
                   </h2>
-                  <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mt-2">
-                    IronClad Global Security — Confidential Document
+                   <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mt-2">
+                    Prime Vault Services Ltd — Confidential Document
                   </p>
                 </div>
               </div>
@@ -269,7 +269,7 @@ const TrackAsset = () => {
               <div className="border-t border-primary/20 px-8 py-5 flex items-center justify-between">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Lock className="h-3 w-3 text-primary" />
-                  Encrypted & tamper-proof — verified by IronClad Security
+                  Encrypted & tamper-proof — verified by Prime Vault Services
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Shield className="h-3 w-3 text-primary" />

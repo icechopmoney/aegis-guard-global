@@ -58,7 +58,7 @@ const Index = () => {
               custom={2}
               className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
             >
-              IronClad delivers military-grade security, real-time monitoring, and
+              Prime Vault Services delivers military-grade security, real-time monitoring, and
               secure logistics for the world's most valuable assets. Trusted by
               governments, institutions, and private clients across 48 countries.
             </motion.p>

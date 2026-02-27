@@ -9,7 +9,7 @@ const Footer = () => (
           <Link to="/" className="flex items-center gap-3 mb-4">
             <Shield className="h-6 w-6 text-primary" />
             <span className="font-display text-lg font-bold tracking-wider text-foreground">
-              IRON<span className="text-gradient-gold">CLAD</span>
+              PRIME <span className="text-gradient-gold">VAULT</span>
             </span>
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -26,16 +26,24 @@ const Footer = () => (
           </ul>
         </div>
         <div>
-          <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Company</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
-            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
-            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
-            <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Compliance</Link></li>
+          <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Offices</h4>
+          <ul className="space-y-3 text-sm">
+            <li>
+              <p className="text-foreground font-medium">Head Office</p>
+              <a href="https://maps.google.com/?q=Noorderlaan+169,+2030+Antwerpen,+Belgium" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Noorderlaan 169, 2030 Antwerpen, Belgium</a>
+            </li>
+            <li>
+              <p className="text-foreground font-medium">Branch Office</p>
+              <a href="https://maps.google.com/?q=Inselkammerstraße+8,+82008+Unterhaching,+Germany" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Inselkammerstraße 8, 82008 Unterhaching, Germany</a>
+            </li>
           </ul>
         </div>
         <div>
-          <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Operations</h4>
+          <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Contact</h4>
+          <ul className="space-y-2 text-sm">
+            <li><a href="mailto:info@primeVaultservices.org" className="text-muted-foreground hover:text-primary transition-colors">info@primeVaultservices.org</a></li>
+          </ul>
+          <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4 mt-6">Operations</h4>
           <ul className="space-y-2 text-sm">
             <li><Link to="/track" className="text-muted-foreground hover:text-primary transition-colors">Global Coverage</Link></li>
             <li><Link to="/track" className="text-muted-foreground hover:text-primary transition-colors">24/7 Operations Center</Link></li>
@@ -46,7 +54,7 @@ const Footer = () => (
       </div>
       <div className="glow-line mt-12 mb-6" />
       <p className="text-center text-xs text-muted-foreground">
-        © 2026 IronClad Global Security. All rights reserved. This is a fictional company for demonstration purposes.
+        © 2026 Prime Vault Services Ltd. All rights reserved.
       </p>
     </div>
   </footer>

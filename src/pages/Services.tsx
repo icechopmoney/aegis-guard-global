@@ -70,7 +70,7 @@ const Services = () => {
               Security <span className="text-gradient-gold">Services</span>
             </h1>
             <p className="mt-6 max-w-2xl mx-auto text-muted-foreground leading-relaxed">
-              From vault storage to armed escort, IronClad provides end-to-end
+              From vault storage to armed escort, Prime Vault Services provides end-to-end
               protection for the world's most critical assets.
             </p>
           </motion.div>
