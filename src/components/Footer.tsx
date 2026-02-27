@@ -30,11 +30,11 @@ const Footer = () => (
           <ul className="space-y-3 text-sm">
             <li>
               <p className="text-foreground font-medium">Head Office</p>
-              <a href="https://maps.google.com/?q=Noorderlaan+169,+2030+Antwerpen,+Belgium" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Noorderlaan 169, 2030 Antwerpen, Belgium</a>
+              <p className="text-muted-foreground">Noorderlaan 169, 2030 Antwerpen, Belgium</p>
             </li>
             <li>
               <p className="text-foreground font-medium">Branch Office</p>
-              <a href="https://maps.google.com/?q=Inselkammerstraße+8,+82008+Unterhaching,+Germany" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Inselkammerstraße 8, 82008 Unterhaching, Germany</a>
+              <p className="text-muted-foreground">Inselkammerstraße 8, 82008 Unterhaching, Germany</p>
             </li>
           </ul>
         </div>
