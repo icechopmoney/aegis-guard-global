@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { ContactService } from "../services/contactService";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -25,7 +26,7 @@ const Contact = () => {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = contactSchema.safeParse(form);
     if (!result.success) {
@@ -36,12 +37,33 @@ const Contact = () => {
       setErrors(fieldErrors);
       return;
     }
+    
     setSending(true);
-    setTimeout(() => {
+    try {
+      const submission = await ContactService.submitContactForm(form);
+      if (submission) {
+        setForm({ name: "", email: "", subject: "", message: "" });
+        toast({ 
+          title: "Message Sent Successfully", 
+          description: "We'll get back to you within 24 hours." 
+        });
+      } else {
+        toast({ 
+          title: "Error", 
+          description: "Failed to send message. Please try again.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({ 
+        title: "Error", 
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
       setSending(false);
-      setForm({ name: "", email: "", subject: "", message: "" });
-      toast({ title: "Message Sent", description: "We'll get back to you shortly." });
-    }, 1200);
+    }
   };
 
   return (

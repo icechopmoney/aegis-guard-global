@@ -1,70 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Shield, AlertTriangle, Loader2, Lock, FileText, User, Globe, Calendar, Package, DollarSign, Archive } from "lucide-react";
+import { supabase, VaultCertificate } from "../lib/supabase";
 
-interface VaultCertificate {
-  vaultCode: string;
-  assignedCustodian: string;
-  transactionCode: string;
-  securityCode: string;
-  depositorName: string;
-  depositorNationality: string;
-  nextOfKin: string;
-  nextOfKinNationality: string;
-  dateOfDeposit: string;
-  purposeOfDeposit: string;
-  securityCharges: string;
-  consignmentPackage: string;
-  consignmentContent: string;
-}
-
-const mockData: Record<string, VaultCertificate> = {
-  "AF-2026-0042": {
-    vaultCode: "VC-8741-ZRCH-A3",
-    assignedCustodian: "Col. Heinrich Brauer",
-    transactionCode: "TXN-2026-AF0042-GLD",
-    securityCode: "SEC-9827-DELTA-7X",
-    depositorName: "Laurent M. Beaumont",
-    depositorNationality: "France",
-    nextOfKin: "Isabelle C. Beaumont",
-    nextOfKinNationality: "France",
-    dateOfDeposit: "24 February 2026",
-    purposeOfDeposit: "Private Storage — Long-Term Investment Holding",
-    securityCharges: "CHF 47,500.00 / Annum",
-    consignmentPackage: "Sealed Vault Crate — Class IV Armored",
-    consignmentContent: "Gold Bullion — 12 × 1kg LBMA-Certified Bars",
-  },
-  "AF-2026-0099": {
-    vaultCode: "VC-3392-ZRCH-B7",
-    assignedCustodian: "Cmdr. Elena Vogt",
-    transactionCode: "TXN-2026-AF0099-ART",
-    securityCode: "SEC-5510-OMEGA-2K",
-    depositorName: "Dimitri A. Konstantinos",
-    depositorNationality: "Greece",
-    nextOfKin: "Sophia E. Konstantinos",
-    nextOfKinNationality: "Greece",
-    dateOfDeposit: "10 February 2026",
-    purposeOfDeposit: "Legal Custody — Insured Art Collection",
-    securityCharges: "CHF 62,000.00 / Annum",
-    consignmentPackage: "Climate-Controlled Precious Metals Locker",
-    consignmentContent: "Fine Art — 4 Paintings, Authenticated & Insured ($12.4M)",
-  },
-  "AF-2026-0155": {
-    vaultCode: "VC-6178-SING-D1",
-    assignedCustodian: "Maj. Rajesh Anand",
-    transactionCode: "TXN-2026-AF0155-CUR",
-    securityCode: "SEC-7743-ALPHA-9R",
-    depositorName: "Chen Wei Lin",
-    depositorNationality: "Singapore",
-    nextOfKin: "Chen Mei Xiang",
-    nextOfKinNationality: "Singapore",
-    dateOfDeposit: "15 January 2026",
-    purposeOfDeposit: "International Transfer — Multi-Denomination Currency",
-    securityCharges: "SGD 28,750.00 / Annum",
-    consignmentPackage: "Armored Case — Dual-Lock Biometric Seal",
-    consignmentContent: "Currency — Multi-Denomination (USD, EUR, GBP, CHF) — $3.2M Equivalent",
-  },
-};
 
 const CertField = ({ label, value, icon: Icon, delay = 0 }: { label: string; value: string; icon: React.ElementType; delay?: number }) => (
   <motion.div
@@ -83,6 +21,33 @@ const CertField = ({ label, value, icon: Icon, delay = 0 }: { label: string; val
   </motion.div>
 );
 
+// Helper function to format date
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    day: 'numeric', 
+    month: 'long', 
+    year: 'numeric' 
+  });
+};
+
+// Helper function to map database fields to display format
+const mapCertificateToDisplay = (cert: VaultCertificate) => ({
+  vaultCode: cert.vault_code,
+  assignedCustodian: cert.assigned_custodian,
+  transactionCode: cert.transaction_code,
+  securityCode: cert.security_code,
+  depositorName: cert.depositor_name,
+  depositorNationality: cert.depositor_nationality,
+  nextOfKin: cert.next_of_kin,
+  nextOfKinNationality: cert.next_of_kin_nationality,
+  dateOfDeposit: formatDate(cert.date_of_deposit),
+  purposeOfDeposit: cert.purpose_of_deposit,
+  securityCharges: cert.security_charges,
+  consignmentPackage: cert.consignment_package,
+  consignmentContent: cert.consignment_content,
+});
+
 const TrackAsset = () => {
   const [trackingId, setTrackingId] = useState("");
   const [result, setResult] = useState<VaultCertificate | null>(null);
@@ -94,13 +59,27 @@ const TrackAsset = () => {
     setLoading(true);
     setResult(null);
     setNotFound(false);
-    await new Promise((r) => setTimeout(r, 1500));
-    const found = mockData[trackingId.trim().toUpperCase()];
-    if (found) {
-      setResult(found);
-    } else {
+    
+    try {
+      const { data, error } = await supabase
+        .from('vault_certificates')
+        .select('*')
+        .eq('tracking_reference', trackingId.trim().toUpperCase())
+        .single();
+
+      if (error) {
+        console.error('Error fetching certificate:', error);
+        setNotFound(true);
+      } else if (data) {
+        setResult(mapCertificateToDisplay(data));
+      } else {
+        setNotFound(true);
+      }
+    } catch (error) {
+      console.error('Error tracking certificate:', error);
       setNotFound(true);
     }
+    
     setLoading(false);
   };
 
@@ -190,10 +169,10 @@ const TrackAsset = () => {
               <h3 className="font-display text-xl font-bold text-foreground mb-2">Reference Not Found</h3>
               <p className="text-sm text-muted-foreground">No vault certificate matches this tracking reference.</p>
               <p className="mt-4 text-xs text-muted-foreground">
-                Try:{" "}
-                <button onClick={() => { setTrackingId("AF-2026-0042"); setNotFound(false); }} className="text-primary hover:underline font-mono">AF-2026-0042</button>,{" "}
-                <button onClick={() => { setTrackingId("AF-2026-0099"); setNotFound(false); }} className="text-primary hover:underline font-mono">AF-2026-0099</button>, or{" "}
-                <button onClick={() => { setTrackingId("AF-2026-0155"); setNotFound(false); }} className="text-primary hover:underline font-mono">AF-2026-0155</button>
+                Try sample tracking references: 
+                <button onClick={() => { setTrackingId("AF-2026-0042"); setNotFound(false); }} className="text-primary hover:underline font-mono ml-1">AF-2026-0042</button>,
+                <button onClick={() => { setTrackingId("AF-2026-0099"); setNotFound(false); }} className="text-primary hover:underline font-mono ml-1">AF-2026-0099</button>, or
+                <button onClick={() => { setTrackingId("AF-2026-0155"); setNotFound(false); }} className="text-primary hover:underline font-mono ml-1">AF-2026-0155</button>
               </p>
             </div>
           </motion.div>
