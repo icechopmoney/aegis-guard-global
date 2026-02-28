@@ -42,6 +42,7 @@ const Footer = () => (
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4">Contact</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="mailto:info@primeVaultservices.org" className="text-muted-foreground hover:text-primary transition-colors">info@primeVaultservices.org</a></li>
+            <li><Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Page</Link></li>
           </ul>
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-primary mb-4 mt-6">Operations</h4>
           <ul className="space-y-2 text-sm">
