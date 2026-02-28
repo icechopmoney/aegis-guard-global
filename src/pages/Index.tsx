@@ -1,9 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Shield, MapPin, Clock, Lock, ChevronRight, Globe, Users, Radio } from "lucide-react";
-import heroVault from "@/assets/hero-vault.png";
-import monitoringCenter from "@/assets/monitoring-center.png";
-import armoredTransport from "@/assets/armored-transport.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -27,7 +24,7 @@ const Index = () => {
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroVault} alt="Secure vault facility" className="h-full w-full object-cover opacity-30" />
+          <img src="/hero-vault.png" alt="Secure vault facility" className="h-full w-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
         </div>
 
@@ -143,7 +140,7 @@ const Index = () => {
               className="relative"
             >
               <img
-                src={monitoringCenter}
+                src="/monitoring-center.png"
                 alt="Global monitoring operations center"
                 className="rounded-lg shadow-card"
               />
@@ -165,7 +162,7 @@ const Index = () => {
               className="order-2 md:order-1 relative"
             >
               <img
-                src={armoredTransport}
+                src="/armored-transport.png"
                 alt="Armored transport convoy"
                 className="rounded-lg shadow-card"
               />
