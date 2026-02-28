@@ -65,18 +65,20 @@ const Navbar = () => {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
-          className="md:hidden border-t border-border bg-background px-6 pb-6"
+          className="md:hidden border-t border-border bg-background pb-6"
         >
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              onClick={() => setMobileOpen(false)}
-              className="block py-3 text-sm font-medium uppercase tracking-wide text-muted-foreground hover:text-primary"
-            >
-              {item.label}
-            </Link>
-          ))}
+          <div className="container">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setMobileOpen(false)}
+                className="block py-3 text-sm font-medium uppercase tracking-wide text-muted-foreground hover:text-primary"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </motion.div>
       )}
     </motion.nav>

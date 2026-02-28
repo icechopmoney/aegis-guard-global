@@ -153,7 +153,7 @@ const Index = () => {
 
       {/* Transport Section */}
       <section className="py-16 sm:py-24 bg-card">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <div className="grid items-center gap-16 md:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -198,7 +198,7 @@ const Index = () => {
 
       {/* CTA */}
       <section className="py-24">
-        <div className="container mx-auto px-6 text-center">
+        <div className="container text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
