@@ -87,7 +87,7 @@ const TrackAsset = () => {
     <div className="min-h-screen bg-background pt-24">
       {/* Header */}
       <section className="py-16">
-        <div className="container mx-auto px-6 text-center">
+        <div className="container text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-4 flex items-center justify-center gap-2">
               <div className="h-px w-12 bg-primary" />
@@ -106,7 +106,7 @@ const TrackAsset = () => {
 
       {/* Search */}
       <section className="pb-8">
-        <div className="container mx-auto px-6 max-w-2xl">
+        <div className="container max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,7 +149,7 @@ const TrackAsset = () => {
       {/* Loading */}
       <AnimatePresence>
         {loading && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="container mx-auto px-6 max-w-2xl py-12 text-center">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="container max-w-2xl py-12 text-center">
             <div className="relative mx-auto h-20 w-20">
               <div className="absolute inset-0 rounded-full border-2 border-primary/20" />
               <div className="absolute inset-0 rounded-full border-2 border-t-primary animate-spin" />
@@ -163,7 +163,7 @@ const TrackAsset = () => {
       {/* Not Found */}
       <AnimatePresence>
         {notFound && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="container mx-auto px-6 max-w-2xl py-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="container max-w-2xl py-8">
             <div className="bg-gradient-card border border-destructive/30 rounded-lg p-8 text-center shadow-card">
               <AlertTriangle className="mx-auto h-10 w-10 text-destructive mb-4" />
               <h3 className="font-display text-xl font-bold text-foreground mb-2">Reference Not Found</h3>
@@ -186,7 +186,7 @@ const TrackAsset = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="container mx-auto px-6 max-w-3xl pb-24"
+            className="container max-w-3xl pb-24"
           >
             <div className="bg-gradient-card border border-primary/20 rounded-lg shadow-card overflow-hidden">
               {/* Certificate Header */}

@@ -57,7 +57,7 @@ const Services = () => {
     <div className="min-h-screen bg-background pt-24">
       {/* Header */}
       <section className="py-20">
-        <div className="container mx-auto px-6 text-center">
+        <div className="container text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-4 flex items-center justify-center gap-2">
               <div className="h-px w-12 bg-primary" />
@@ -79,7 +79,7 @@ const Services = () => {
 
       {/* Services Grid */}
       <section className="pb-24">
-        <div className="container mx-auto px-6 space-y-8">
+        <div className="container space-y-8">
           {services.map((service, i) => (
             <motion.div
               key={service.title}

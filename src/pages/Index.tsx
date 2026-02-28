@@ -28,7 +28,7 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
         </div>
 
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+        <div className="container relative pt-24">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -44,7 +44,7 @@ const Index = () => {
             <motion.h1
               variants={fadeUp}
               custom={1}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight text-foreground text-balance"
+              className="font-display text-responsive-h1 font-bold tracking-tight text-foreground text-balance"
             >
               Advanced Protection for{" "}
               <span className="text-gradient-gold">High-Value Assets</span>
@@ -53,7 +53,7 @@ const Index = () => {
             <motion.p
               variants={fadeUp}
               custom={2}
-              className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground text-pretty"
+              className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground text-pretty space-responsive"
             >
               Prime Vault Services delivers military-grade security, real-time monitoring, and
               secure logistics for the world's most valuable assets. Trusted by
@@ -80,7 +80,7 @@ const Index = () => {
 
       {/* Stats */}
       <section className="border-y border-border bg-card">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4">
           {stats.map((stat, i) => (
             <motion.div
@@ -100,9 +100,9 @@ const Index = () => {
       </section>
 
       {/* Monitoring Section */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-16 md:grid-cols-2">
+      <section className="section-padding">
+        <div className="container grid-responsive">
+          <div className="grid items-center md:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -115,7 +115,7 @@ const Index = () => {
                   Real-Time Monitoring
                 </span>
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-6">
+              <h2 className="font-display text-responsive-h2 font-bold text-foreground mb-6">
                 24/7 Global Operations Center
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-8">
@@ -182,7 +182,7 @@ const Index = () => {
                   Secure Logistics
                 </span>
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-6">
+              <h2 className="font-display text-responsive-h2 font-bold text-foreground mb-6">
                 Armored Transport & Escort
               </h2>
               <p className="text-muted-foreground leading-relaxed">

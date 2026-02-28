@@ -69,7 +69,7 @@ const Contact = () => {
   return (
     <main className="min-h-screen bg-background pt-24 pb-20">
       {/* Header */}
-      <section className="container mx-auto px-6 mb-16">
+      <section className="container mb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Info + Form */}
-      <div className="container mx-auto px-6 grid gap-10 lg:grid-cols-2 mb-16">
+      <div className="container grid gap-10 lg:grid-cols-2 mb-16">
         {/* Left: Info cards */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -193,7 +193,7 @@ const Contact = () => {
       </div>
 
       {/* Map */}
-      <div className="container mx-auto px-6">
+      <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
