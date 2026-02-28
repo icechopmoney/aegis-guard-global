@@ -94,6 +94,28 @@
   .text-ellipsis {
     @apply truncate;
   }
+  
+  /* Fix mobile layout issues */
+  @media (max-width: 640px) {
+    .container {
+      @apply px-4;
+    }
+    
+    h1 {
+      @apply text-3xl !important;
+    }
+    
+    h2 {
+      @apply text-2xl !important;
+    }
+  }
+  
+  /* Fix tablet layout issues */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .container {
+      @apply px-6;
+    }
+  }
 }
 
 @layer utilities {

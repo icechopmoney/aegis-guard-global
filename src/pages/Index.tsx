@@ -28,7 +28,7 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
         </div>
 
-        <div className="container relative mx-auto px-6 pt-24">
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 pt-24">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -80,7 +80,8 @@ const Index = () => {
 
       {/* Stats */}
       <section className="border-y border-border bg-card">
-        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -94,13 +95,13 @@ const Index = () => {
               <span className="font-display text-3xl font-bold text-foreground">{stat.value}</span>
               <span className="text-xs uppercase tracking-widest text-muted-foreground">{stat.label}</span>
             </motion.div>
-          ))}
+          ))}</div>
         </div>
       </section>
 
       {/* Monitoring Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-6">
+      <section className="py-16 sm:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-16 md:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -114,7 +115,7 @@ const Index = () => {
                   Real-Time Monitoring
                 </span>
               </div>
-              <h2 className="font-display text-4xl font-bold text-foreground mb-6">
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-6">
                 24/7 Global Operations Center
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-8">
@@ -151,8 +152,8 @@ const Index = () => {
       </section>
 
       {/* Transport Section */}
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-6">
+      <section className="py-16 sm:py-24 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-16 md:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -181,7 +182,7 @@ const Index = () => {
                   Secure Logistics
                 </span>
               </div>
-              <h2 className="font-display text-4xl font-bold text-foreground mb-6">
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-6">
                 Armored Transport & Escort
               </h2>
               <p className="text-muted-foreground leading-relaxed">
