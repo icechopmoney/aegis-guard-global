@@ -1,9 +1,5 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* Remove conflicting styles that mess up layout */
+/* #root styles are now handled by Tailwind utilities */
 
 .logo {
   height: 6em;

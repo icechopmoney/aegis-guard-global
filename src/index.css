@@ -70,6 +70,32 @@
   }
 }
 
+@layer components {
+  /* Fix text overflow and layout issues */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Ensure proper container behavior */
+  .container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Fix responsive text sizing */
+  .responsive-text {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+  
+  /* Prevent text overflow */
+  .text-ellipsis {
+    @apply truncate;
+  }
+}
+
 @layer utilities {
   .text-gradient-gold {
     background: var(--gradient-gold);

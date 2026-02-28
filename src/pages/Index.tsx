@@ -44,7 +44,7 @@ const Index = () => {
             <motion.h1
               variants={fadeUp}
               custom={1}
-              className="font-display text-5xl font-bold leading-tight tracking-tight text-foreground md:text-7xl"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight text-foreground text-balance"
             >
               Advanced Protection for{" "}
               <span className="text-gradient-gold">High-Value Assets</span>
@@ -53,7 +53,7 @@ const Index = () => {
             <motion.p
               variants={fadeUp}
               custom={2}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
+              className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground text-pretty"
             >
               Prime Vault Services delivers military-grade security, real-time monitoring, and
               secure logistics for the world's most valuable assets. Trusted by
