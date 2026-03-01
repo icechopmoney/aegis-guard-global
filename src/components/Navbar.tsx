@@ -6,9 +6,9 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { label: "Home", path: "/" },
-  { label: "Services", path: "/services" },
   { label: "About", path: "/about" },
-  { label: "Contact", path: "/contact" },
+  { label: "Services", path: "/services" },
+  { label: "Book an Appointment", path: "/appointment" },
 ];
 
 const Navbar = () => {
@@ -54,12 +54,6 @@ const Navbar = () => {
                 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary"
               >
                 Login
-              </Link>
-              <Link
-                to="/signup"
-                className="bg-gradient-gold px-5 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground rounded-sm transition-opacity hover:opacity-90"
-              >
-                Sign Up
               </Link>
             </div>
           ) : (
@@ -119,13 +113,6 @@ const Navbar = () => {
                     className="block text-sm font-semibold uppercase tracking-wide text-muted-foreground hover:text-primary"
                   >
                     Login
-                  </Link>
-                  <Link
-                    to="/signup"
-                    onClick={() => setMobileOpen(false)}
-                    className="block text-sm font-semibold uppercase tracking-wide text-primary"
-                  >
-                    Sign Up
                   </Link>
                 </>
               ) : (

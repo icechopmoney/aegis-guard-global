@@ -43,3 +43,15 @@ export interface ContactSubmission {
   created_at: string
   updated_at: string
 }
+
+export interface Appointment {
+  id: string
+  full_name: string
+  email: string
+  phone_number: string
+  preferred_date: string
+  preferred_time: string
+  service_type: 'Vault Storage' | 'Asset Deposit' | 'Consultation' | 'Private Security' | 'Other'
+  message: string | null
+  created_at: string
+}

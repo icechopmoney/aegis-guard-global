@@ -11,7 +11,7 @@ import TrackAsset from "./pages/TrackAsset";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Appointment from "./pages/Appointment";
 import AssetAccess from "./pages/AssetAccess";
 import OtpVerify from "./pages/OtpVerify";
 import NotFound from "./pages/NotFound";
@@ -57,7 +57,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/appointment" element={<Appointment />} />
             <Route
               path="/vault/check"
               element={
