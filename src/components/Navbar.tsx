@@ -68,7 +68,7 @@ const Navbar = () => {
                 {displayName}
               </span>
               <button
-                onClick={() => navigate("/assets/check")}
+                onClick={() => navigate("/vault/check")}
                 className="bg-gradient-gold px-5 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground rounded-sm transition-opacity hover:opacity-90"
               >
                 Check Your Assets
@@ -136,7 +136,7 @@ const Navbar = () => {
                   <button
                     onClick={() => {
                       setMobileOpen(false);
-                      navigate("/assets/check");
+                      navigate("/vault/check");
                     }}
                     className="mt-2 w-full bg-gradient-gold px-4 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground rounded-sm transition-opacity hover:opacity-90"
                   >

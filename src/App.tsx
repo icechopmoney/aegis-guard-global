@@ -37,7 +37,7 @@ const RequireOtp = ({ children }: { children: JSX.Element }) => {
   const { assetAccessGranted } = useAuth();
 
   if (!assetAccessGranted) {
-    return <Navigate to="/assets/check" replace />;
+    return <Navigate to="/vault/check" replace />;
   }
 
   return children;
@@ -59,7 +59,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route
-              path="/assets/check"
+              path="/vault/check"
               element={
                 <RequireAuth>
                   <AssetAccess />
