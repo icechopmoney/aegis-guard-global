@@ -55,19 +55,23 @@ export class AssetOtpService {
     return { ok: true as const };
   }
 
-  // Send OTP email via Supabase Edge Function that uses Resend server-side
+  // Send OTP email via Vercel serverless function that uses Resend server-side
   static async sendOtpEmail(params: { email: string; fullName: string; code: string }) {
-    const { error } = await supabase.functions.invoke("send-asset-otp", {
-      body: {
+    const response = await fetch("/api/send-asset-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         email: params.email,
         fullName: params.fullName,
         code: params.code,
-      },
+      }),
     });
 
-    if (error) {
-      console.error("Error sending OTP email via function:", error);
-      throw error;
+    if (!response.ok) {
+      console.error("Error sending OTP email via Vercel function:", response.status, await response.text());
+      throw new Error("Failed to send OTP email");
     }
   }
 }

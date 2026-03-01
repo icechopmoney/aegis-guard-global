@@ -13,7 +13,6 @@ const fadeUp = {
 
 const stats = [
   { icon: Globe, label: "Countries", value: "48+" },
-  { icon: Shield, label: "Assets Protected", value: "$12B+" },
   { icon: Users, label: "Certified Agents", value: "2,400+" },
   { icon: Clock, label: "Uptime", value: "99.99%" },
 ];
