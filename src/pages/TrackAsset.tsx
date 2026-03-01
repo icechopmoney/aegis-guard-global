@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Shield, AlertTriangle, Loader2, Lock, FileText, User, Globe, Calendar, Package, DollarSign, Archive } from "lucide-react";
 import { supabase, VaultCertificate } from "../lib/supabase";
+import { useAuth } from "@/contexts/AuthContext";
 
 
 const CertField = ({ label, value, icon: Icon, delay = 0 }: { label: string; value: string; icon: React.ElementType; delay?: number }) => (
@@ -31,31 +32,44 @@ const formatDate = (dateString: string) => {
   });
 };
 
+interface CertificateDisplay {
+  vaultCode: string;
+  assignedCustodian: string;
+  transactionCode: string;
+  securityCode: string;
+  depositorName: string;
+  depositorNationality: string;
+  dateOfDeposit: string;
+  purposeOfDeposit: string;
+  vaultCharges: string;
+  consignmentPackage: string;
+  consignmentContent: string;
+}
+
 // Helper function to map database fields to display format
-const mapCertificateToDisplay = (cert: VaultCertificate) => ({
+const mapCertificateToDisplay = (cert: VaultCertificate): CertificateDisplay => ({
   vaultCode: cert.vault_code,
   assignedCustodian: cert.assigned_custodian,
   transactionCode: cert.transaction_code,
   securityCode: cert.security_code,
   depositorName: cert.depositor_name,
   depositorNationality: cert.depositor_nationality,
-  nextOfKin: cert.next_of_kin,
-  nextOfKinNationality: cert.next_of_kin_nationality,
   dateOfDeposit: formatDate(cert.date_of_deposit),
   purposeOfDeposit: cert.purpose_of_deposit,
-  securityCharges: cert.security_charges,
+  vaultCharges: cert.vault_charges,
   consignmentPackage: cert.consignment_package,
   consignmentContent: cert.consignment_content,
 });
 
 const TrackAsset = () => {
   const [trackingId, setTrackingId] = useState("");
-  const [result, setResult] = useState<VaultCertificate | null>(null);
+  const [result, setResult] = useState<CertificateDisplay | null>(null);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const { user } = useAuth();
 
   const handleTrack = async () => {
-    if (!trackingId.trim()) return;
+    if (!trackingId.trim() || !user) return;
     setLoading(true);
     setResult(null);
     setNotFound(false);
@@ -64,6 +78,7 @@ const TrackAsset = () => {
       const { data, error } = await supabase
         .from('vault_certificates')
         .select('*')
+        .eq('user_id', user.id)
         .eq('tracking_reference', trackingId.trim().toUpperCase())
         .single();
 
@@ -231,13 +246,11 @@ const TrackAsset = () => {
                     <CertField icon={Lock} label="Security Code" value={result.securityCode} delay={0.15} />
                     <CertField icon={User} label="Depositor Name" value={result.depositorName} delay={0.2} />
                     <CertField icon={Globe} label="Depositor Nationality" value={result.depositorNationality} delay={0.25} />
-                    <CertField icon={User} label="Next of Kin" value={result.nextOfKin} delay={0.3} />
-                    <CertField icon={Globe} label="Next of Kin Nationality" value={result.nextOfKinNationality} delay={0.35} />
                   </div>
                   <div>
                     <CertField icon={Calendar} label="Date of Deposit" value={result.dateOfDeposit} delay={0.2} />
                     <CertField icon={FileText} label="Purpose of Deposit" value={result.purposeOfDeposit} delay={0.25} />
-                    <CertField icon={DollarSign} label="Security Charges" value={result.securityCharges} delay={0.3} />
+                    <CertField icon={DollarSign} label="Vault Charges" value={result.vaultCharges} delay={0.3} />
                     <CertField icon={Package} label="Consignment Package" value={result.consignmentPackage} delay={0.35} />
                     <CertField icon={Archive} label="Consignment Content" value={result.consignmentContent} delay={0.4} />
                   </div>

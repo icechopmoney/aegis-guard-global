@@ -24,7 +24,16 @@ const Index = () => {
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/hero-vault.png" alt="Secure vault facility" className="h-full w-full object-cover opacity-30" />
+          <video
+            className="h-full w-full object-cover"
+            src="/IMG_4533.MOV"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/hero-vault.png"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
         </div>
 

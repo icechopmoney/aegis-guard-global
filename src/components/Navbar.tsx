@@ -1,18 +1,24 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Shield, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
-  { label: "Track Asset", path: "/track" },
+  { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
 ];
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const displayName =
+    (user?.user_metadata as { full_name?: string } | null)?.full_name || user?.email || "Client";
 
   return (
     <motion.nav
@@ -35,20 +41,46 @@ const Navbar = () => {
               key={item.path}
               to={item.path}
               className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-primary ${
-                location.pathname === item.path
-                  ? "text-primary"
-                  : "text-muted-foreground"
+                location.pathname === item.path ? "text-primary" : "text-muted-foreground"
               }`}
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            to="/track"
-            className="bg-gradient-gold px-5 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground rounded-sm transition-opacity hover:opacity-90"
-          >
-            Track Now
-          </Link>
+          {!user ? (
+            <div className="flex items-center gap-3">
+              <Link
+                to="/login"
+                className="text-sm font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-gradient-gold px-5 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground rounded-sm transition-opacity hover:opacity-90"
+              >
+                Sign Up
+              </Link>
+            </div>
+          ) : (
+            <div className="flex items-center gap-4">
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                {displayName}
+              </span>
+              <button
+                onClick={() => navigate("/assets/check")}
+                className="bg-gradient-gold px-5 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground rounded-sm transition-opacity hover:opacity-90"
+              >
+                Check Your Assets
+              </button>
+              <button
+                onClick={logout}
+                className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground hover:text-primary"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -78,6 +110,50 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
+            <div className="mt-4 border-t border-border pt-4 space-y-2">
+              {!user ? (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="block text-sm font-semibold uppercase tracking-wide text-muted-foreground hover:text-primary"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    onClick={() => setMobileOpen(false)}
+                    className="block text-sm font-semibold uppercase tracking-wide text-primary"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                    {displayName}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setMobileOpen(false);
+                      navigate("/assets/check");
+                    }}
+                    className="mt-2 w-full bg-gradient-gold px-4 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground rounded-sm transition-opacity hover:opacity-90"
+                  >
+                    Check Your Assets
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMobileOpen(false);
+                      logout();
+                    }}
+                    className="mt-2 w-full text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground hover:text-primary"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </motion.div>
       )}

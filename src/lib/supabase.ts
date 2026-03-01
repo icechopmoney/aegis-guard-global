@@ -6,6 +6,7 @@ export const supabase = createClient(supabaseConfig.url, supabaseConfig.anonKey)
 // Database types
 export interface VaultCertificate {
   id: string
+  user_id: string
   tracking_reference: string
   vault_code: string
   assigned_custodian: string
@@ -13,16 +14,23 @@ export interface VaultCertificate {
   security_code: string
   depositor_name: string
   depositor_nationality: string
-  next_of_kin: string
-  next_of_kin_nationality: string
   date_of_deposit: string
   purpose_of_deposit: string
-  security_charges: string
+  vault_charges: string
   consignment_package: string
   consignment_content: string
   status: 'active' | 'inactive' | 'archived'
   created_at: string
   updated_at: string
+}
+
+export interface AssetOtp {
+  id: string
+  user_id: string
+  code: string
+  expires_at: string
+  used_at: string | null
+  created_at: string
 }
 
 export interface ContactSubmission {
