@@ -80,7 +80,7 @@ const TrackAsset = () => {
         .select('*')
         .eq('user_id', user.id)
         .eq('tracking_reference', trackingId.trim().toUpperCase())
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.error('Error fetching certificate:', error);
