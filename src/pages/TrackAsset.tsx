@@ -183,12 +183,6 @@ const TrackAsset = () => {
               <AlertTriangle className="mx-auto h-10 w-10 text-destructive mb-4" />
               <h3 className="font-display text-xl font-bold text-foreground mb-2">Reference Not Found</h3>
               <p className="text-sm text-muted-foreground">No vault certificate matches this tracking reference.</p>
-              <p className="mt-4 text-xs text-muted-foreground">
-                Try sample tracking references: 
-                <button onClick={() => { setTrackingId("AF-2026-0042"); setNotFound(false); }} className="text-primary hover:underline font-mono ml-1">AF-2026-0042</button>,
-                <button onClick={() => { setTrackingId("AF-2026-0099"); setNotFound(false); }} className="text-primary hover:underline font-mono ml-1">AF-2026-0099</button>, or
-                <button onClick={() => { setTrackingId("AF-2026-0155"); setNotFound(false); }} className="text-primary hover:underline font-mono ml-1">AF-2026-0155</button>
-              </p>
             </div>
           </motion.div>
         )}
