@@ -63,9 +63,9 @@ const Index = () => {
               custom={2}
               className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground text-pretty space-responsive"
             >
-              Prime Vault Services delivers military-grade security, real-time monitoring, and
-              secure logistics for the world's most valuable assets. Trusted by
-              governments, institutions, and private clients across 48 countries.
+              Prime Vault Services provides military-grade security, real-time monitoring, and
+              secure logistics for the world's most valuable assets. Trusted by governments
+              institutions, and private clients across 48 countries.
             </motion.p>
 
             <motion.div variants={fadeUp} custom={3} className="mt-10 flex flex-wrap gap-4">

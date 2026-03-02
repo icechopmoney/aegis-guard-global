@@ -33,8 +33,14 @@ const Footer = () => (
               <p className="text-muted-foreground">Noorderlaan 169, 2030 Antwerpen, Belgium</p>
             </li>
             <li>
-              <p className="text-foreground font-medium">Branch Office</p>
-              <p className="text-muted-foreground">Inselkammerstraße 8, 82008 Unterhaching, Germany</p>
+              <p className="text-foreground font-medium mb-2">Global Locations</p>
+              <ul className="space-y-1 text-muted-foreground">
+                <li>Birmingham, United Kingdom</li>
+                <li>Geneva, France</li>
+                <li>Naples, Italy</li>
+                <li>Mazyr, Belarus</li>
+                <li>Bergen, Norway</li>
+              </ul>
             </li>
           </ul>
         </div>

@@ -131,8 +131,14 @@ const Contact = () => {
                 <MapPin className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-display text-lg font-semibold text-foreground mb-1">Branch Office</h3>
-                <p className="text-muted-foreground text-sm">Inselkammerstraße 8, 82008 Unterhaching, Germany</p>
+                <h3 className="font-display text-lg font-semibold text-foreground mb-1">Global Locations</h3>
+                <ul className="text-muted-foreground text-sm space-y-1">
+                  <li>Birmingham, United Kingdom</li>
+                  <li>Geneva, France</li>
+                  <li>Naples, Italy</li>
+                  <li>Mazyr, Belarus</li>
+                  <li>Bergen, Norway</li>
+                </ul>
               </div>
             </div>
           </div>
