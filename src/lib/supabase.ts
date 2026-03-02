@@ -9,6 +9,7 @@ export interface VaultCertificate {
   user_id: string
   tracking_reference: string
   vault_code: string
+  ownership: string
   assigned_custodian: string
   transaction_code: string
   security_code: string

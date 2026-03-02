@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Shield, AlertTriangle, Loader2, Lock, FileText, User, Globe, Calendar, Package, DollarSign, Archive } from "lucide-react";
+import { Search, Shield, AlertTriangle, Loader2, Lock, FileText, User, Globe, Calendar, Package, DollarSign, Archive, UserCheck } from "lucide-react";
 import { supabase, VaultCertificate } from "../lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -34,6 +34,7 @@ const formatDate = (dateString: string) => {
 
 interface CertificateDisplay {
   vaultCode: string;
+  ownership: string;
   assignedCustodian: string;
   transactionCode: string;
   securityCode: string;
@@ -49,6 +50,7 @@ interface CertificateDisplay {
 // Helper function to map database fields to display format
 const mapCertificateToDisplay = (cert: VaultCertificate): CertificateDisplay => ({
   vaultCode: cert.vault_code,
+  ownership: cert.ownership,
   assignedCustodian: cert.assigned_custodian,
   transactionCode: cert.transaction_code,
   securityCode: cert.security_code,
@@ -214,15 +216,15 @@ const TrackAsset = () => {
                 </div>
               </div>
 
-              {/* Vault Code & Custodian */}
+              {/* Vault Code & Ownership */}
               <div className="grid md:grid-cols-2 border-b border-border">
                 <div className="border-b md:border-b-0 md:border-r border-border px-8 py-6 text-center">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary mb-2">Vault Code</p>
                   <p className="font-mono text-lg font-bold text-foreground tracking-widest">{result.vaultCode}</p>
                 </div>
                 <div className="px-8 py-6 text-center">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary mb-2">Assigned Custodian</p>
-                  <p className="font-display text-lg font-semibold text-foreground">{result.assignedCustodian}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary mb-2">Ownership</p>
+                  <p className="font-display text-lg font-semibold text-foreground">{result.ownership}</p>
                 </div>
               </div>
 
@@ -240,6 +242,7 @@ const TrackAsset = () => {
                     <CertField icon={Lock} label="Security Code" value={result.securityCode} delay={0.15} />
                     <CertField icon={User} label="Depositor Name" value={result.depositorName} delay={0.2} />
                     <CertField icon={Globe} label="Depositor Nationality" value={result.depositorNationality} delay={0.25} />
+                    <CertField icon={UserCheck} label="Assigned Custodian" value={result.assignedCustodian} delay={0.3} />
                   </div>
                   <div>
                     <CertField icon={Calendar} label="Date of Deposit" value={result.dateOfDeposit} delay={0.2} />
